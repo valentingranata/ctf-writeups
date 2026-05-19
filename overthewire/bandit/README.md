@@ -123,7 +123,7 @@ Let's start by changing directory to `inhere`.
 cd ./inhere
 ```
 
-By doing `ls` inside the `inhere` directory we can see that we have 10 files, let's avoid checking them one by using the `file` command and `*` wildcard (represents "zero or more characters").
+By doing `ls` inside the `inhere` directory we can see that we have 10 files, let's avoid checking them one by one, let's try to use the `file` command and `*` wildcard (represents "zero or more characters").
 
 ```bash
 file ./-file*
@@ -203,4 +203,384 @@ cat /var/lib/dpkg/info/bandit7.password
 **Takeaway:** We used the `find` command again but with different options, such as: `-user` and `-group` (to specify the owner and group of the file). We also learned how to redirect `stderr` to `/dev/null` (`... 2> /dev/null`), a special file that acts as a **black hole** (anything written to it is permanently discarded).
 
 ---
+
+## Lvl 7 → 8
+
+**Goal:** Search for the flag inside `data.txt` file next to the word `millionth`. 
+
+To find the flag we can use the `grep` command with the following pattern `"millionth"` on the `data.txt` file.
+
+```bash
+grep "millionth" data.txt
+```
+
+**Flag:** `dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc` 
+
+**Takeaway:** Instead of reading a huge file line by line, we can use the `grep` command to print only the line that match a **pattern** . 
+
+---
+
+## Lvl 8 → 9
+
+**Goal:** Find the flag inside `data.txt`, it's the only line of text that occurs only once. 
+
+To find the flag inside the `data.txt`, we first need to **print** the data, **sort** them and use the `uniq -c` command to print the only unique line in the sorted file (it's important for the `uniq` command to work properly that the data is sorted).
+
+```bash
+cat data.txt | sort | uniq -u
+```
+
+**Flag:** `4CKMh1JI91bUIZZPXDqGanal4xvAg0JM` 
+
+**Takeaway:** The `|` (pipe) operator passes the output of left command to the input of the right command. `sort` orders lines alphabetically, and `uniq -u` prints only lines that appear exactly once (but `uniq` requires sorted input to work correctly).
+
+---
+
+## Lvl 9 → 10
+
+**Goal:** Find the flag in the `data.txt` file, the flag is preceded by several `=` chars. 
+
+To solve this level we have to use the `strings` command to print all printable characters in the file, pipe `|` the result with `grep` to filter for `=` chars. 
+
+```bash
+strings data.txt | grep "====="
+```
+
+**Flag:** `FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey` 
+
+**Takeaway:** The `strings` command extracts **human-readable text** from binary files. Combined with `grep`, it lets us filter for specific patterns (here the `=` characters that precede the flag).
+
+---
+
+## Lvl 10 → 11
+
+**Goal:** Read the flag from `data.txt` file encoded in base64.
+
+We can use the `base64` command with the `-d` option to **decode** a base64 encoding.
+
+```bash
+base64 -d data.txt
+```
+
+**Flag:** `dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr` 
+
+**Takeaway:** When working with base64 encoding we can use the `base64` command to **encode** or **decode** the data. 
+
+---
+
+## Lvl 11 → 12
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 12 → 13
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 13 → 14
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 14 → 15
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** ``  
+
+**Takeaway:** 
+
+---
+
+## Lvl 15 → 16
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 16 → 17
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 17 → 18
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 18 → 19
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 19 → 20
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 20 → 21
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 21 → 22
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 22 → 23
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 23 → 24
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 24 → 25
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 25 → 26
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 26 → 27
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 27 → 28
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 28 → 29
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 29 → 30
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 30 → 31
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 31 → 32
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 32 → 33
+
+**Goal:** 
+
+```bash
+
+```
+
+**Flag:** `` 
+
+**Takeaway:** 
+
+---
+
+## Lvl 33 → 34
+
+**Goal:** Just ssh in to the level to check the password.
+
+**Flag:** `no flag is provided for the last level`
+
+**Takeaway:** Congratulations on completing all the bandit levels! 
 
