@@ -67,8 +67,7 @@ cat ./-
 
 **Goal:** Read a file named `--spaces in this filename--` in the home directory. 
 
-Use `./` prefix before `--spaces` to print the file containing the flag.
-Use `\` prefix before ` ` spaces.
+Use `./` prefix before `--spaces` and `\` prefix before ` ` (spaces) to print the file containing the flag.
 
 ```bash
 cat ./--spaces\ in\ this\ filename-- 
@@ -85,3 +84,36 @@ cat "./--spaces in this filename--"
 **Takeaway:** Filenames with spaces can be escaped with `\` before each space ` `, or by wrapping the full path in quotes (`""` or `''`).
 
 --- 
+
+## Lvl 3 → 4
+
+**Goal:** Find and read the content of a hidden file.
+
+To see the hidden files inside the current directory, just use the `ls` command with `-a` option.
+
+```bash
+ls -a
+```
+Nothing relevant will be show to us in the home directory of bandit3, just some standard hidden files present in every home directory, so let's change directory to `inhere`.
+
+```bash
+cd ./inhere
+```
+
+Run the `ls` command again with `-a` option.
+
+```bash
+ls -a
+```
+
+Here we'll see a file named `...Hiding-From-You`, let's print it to the screen.
+
+```bash
+cat ./...Hiding-From-You
+```
+
+**Flag:** `2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ`
+
+**Takeaway:** Files prefixed with `.` are hidden in Linux. Use `ls -a` to list all files including hidden ones.
+
+---
