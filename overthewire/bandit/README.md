@@ -143,3 +143,34 @@ cat ./-file07
 
 ## Lvl 5 → 6
 
+**Goal:** We have to find a file with this properties:
+- human-readable
+- 1033 bytes in size
+- not executable 
+inside the `inhere` directory.
+
+Let's start by changing directory to `inhere`.
+
+```bash
+cd ./inhere
+```
+
+By doing `ls` inside the `inhere` folder we'll instantly understand that checking each folder one by one is not a good idea.
+Let's use the `find` command to try to filter the files with certain properties.
+To get a better understanding of each option used in the command below, check the manual for `find` command: `man find`.
+
+```bash
+find ./ -type f -size 1033c -not -executable
+```
+
+After the `find` command we'll see only one file seems to match our search, let's print the content of that file to the screen
+
+```bash
+cat ./maybehere07/.file2
+```
+
+**Flag:** `HWasnPhtq9AVKe0dmk45nxy20cvUa6EG`
+
+**Takeaway:** We can use the `find` command to filter files by type (`-type f`), size (`-size 1033c`, where `c` = bytes), and permissions (`-not -executable`), making it powerful for locating specific files in large directory trees.
+
+---
