@@ -174,3 +174,33 @@ cat ./maybehere07/.file2
 **Takeaway:** We can use the `find` command to filter files by type (`-type f`), size (`-size 1033c`, where `c` = bytes), and permissions (`-not -executable`), making it powerful for locating specific files in large directory trees.
 
 ---
+
+## Lvl 6 → 7
+
+**Goal:** Find a file with the following properties: 
+- owned by user `bandit7`
+- owned by group `bandit6`
+- `33 bytes` in size
+
+When we login we can see that there is nothing inside the home directory, not even `ls -a` can save us.
+
+Let's try to use the `find` command on the root `/` directory with the required properties.
+
+```bash
+find / -user "bandit7" -group "bandit6" -size 33c 2> /dev/null
+```
+
+To avoid useless `Permission denied` messages, we can redirect the standard error (`stderr`) to `/dev/null` folder that acts as a "black hole" on linux, deleting anything that's going inside.
+
+Now we should see only one file, let's print it to the screen.
+
+```bash
+cat /var/lib/dpkg/info/bandit7.password
+```
+
+**Flag:** `morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj`
+
+**Takeaway:** We used the `find` command again but with different options, such as: `-user` and `-group` (to specify the owner and group of the file). We also learned how to redirect `stderr` to `/dev/null` (`... 2> /dev/null`), a special file that acts as a **black hole** (anything written to it is permanently discarded).
+
+---
+
