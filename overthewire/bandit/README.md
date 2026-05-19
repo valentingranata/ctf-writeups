@@ -87,20 +87,15 @@ cat "./--spaces in this filename--"
 
 ## Lvl 3 → 4
 
-**Goal:** Find and read the content of a hidden file.
+**Goal:** Find and read the content of a **hidden file** inside the `inhere` directory.
 
-To see the hidden files inside the current directory, just use the `ls` command with `-a` option.
-
-```bash
-ls -a
-```
-Nothing relevant will be show to us in the home directory of bandit3, just some standard hidden files present in every home directory, so let's change directory to `inhere`.
+Let's start by changing directory to `inhere`.
 
 ```bash
 cd ./inhere
 ```
 
-Run the `ls` command again with `-a` option.
+To see the hidden files inside the current directory, just use the `ls` command with `-a` option.
 
 ```bash
 ls -a
@@ -117,3 +112,34 @@ cat ./...Hiding-From-You
 **Takeaway:** Files prefixed with `.` are hidden in Linux. Use `ls -a` to list all files including hidden ones.
 
 ---
+
+## Lvl 4 → 5
+
+**Goal:** Find and read the only **human-readable** file inside the `inhere` directory. 
+
+Let's start by changing directory to `inhere`.
+
+```bash
+cd ./inhere
+```
+
+By doing `ls` inside the `inhere` directory we can see that we have 10 files, let's avoid checking them one by using the `file` command and `*` wildcard (represents "zero or more characters").
+
+```bash
+file ./-file*
+```
+
+In the output we can see that one of the files is an `ASCII text` file, let's print the content of the file to the screen.
+
+```bash
+cat ./-file07
+```
+
+**Flag:** `4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw`
+
+**Takeaway:** We can determine the **file type** of a file with the `file` command. Using the `*` wildcard we can match multiple files with one command avoiding manual repetition.
+
+---
+
+## Lvl 5 → 6
+
