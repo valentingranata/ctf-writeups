@@ -248,7 +248,7 @@ strings data.txt | grep "====="
 
 **Flag:** `FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey` 
 
-**Takeaway:** The `strings` command extracts **human-readable text** from binary files. Combined with `grep`, it lets us filter for specific patterns (here the `=` characters that precede the flag).
+**Takeaway:** The `strings` command extracts **human-readable text** from binary files. Combined with `grep`, it let's us filter for specific patterns (here the `=` characters that precede the flag).
 
 ---
 
@@ -270,29 +270,71 @@ base64 -d data.txt
 
 ## Lvl 11 → 12
 
-**Goal:** 
+**Goal:** Rotate the text inside the `data.txt` file by 13 positions. 
+
+To rotate the letters by 13 positions, we can print the `data.txt` file and pipe it into the `tr` command to map each letter to the one 13 positions forward in the alphabet.
 
 ```bash
-
+cat data.txt | tr [a-zA-Z] [n-za-mN-ZA-M]
 ```
 
-**Flag:** `` 
+**Flag:** `7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4` 
 
-**Takeaway:** 
+**Takeaway:** We can replace or delete chars by using the `tr` command. 
 
 ---
 
 ## Lvl 12 → 13
 
-**Goal:** 
+**Goal:** Decompress `data.txt` multiple times to find the **flag**. 
+
+First as suggested, let's create a temporary folder to work in.
 
 ```bash
-
+mktemp -d
+cd <path/to/temp/folder>
 ```
 
-**Flag:** `` 
+Let's copy the `data.txt` file to the temporary folder.
 
-**Takeaway:** 
+```bash
+cp ~/data.txt ./
+```
+
+If we print the `data.txt` file, we can see that it's a hexdump of a binary, so lets convert it back to a binary with the `xxd -r` command.
+
+```bash
+xxd -r data.txt > binary.gz
+```
+
+Now we'll check the file type with the `file` command and decompress the data until we find the **flag**.
+
+```bash
+gzip -dc binary.gz > data2.bz2 
+bzip2 -dc data2.bz2 > data3.gz
+gzip -dc data3.gz > data4.tar
+tar -xOf data4.tar > data5.tar
+tar -xOf data5.tar > data6.bz2
+bzip2 -dc data6.bz2 > data7.tar
+tar -xOf data7.tar > data8.gz
+gzip -dc data8.gz > data9.txt
+```
+
+Last step is to print the `data9.txt` to stdout.
+
+```bash
+cat data9.txt
+```
+
+This is the final one-liner:
+
+```bash
+xxd -r data.txt > binary.gz && gzip -dc binary.gz > data2.bz2 && bzip2 -dc data2.bz2 > data3.gz && gzip -dc data3.gz > data4.tar && tar -xOf data4.tar > data5.tar && tar -xOf data5.tar > data6.bz2 && bzip2 -dc data6.bz2 > data7.tar && tar -xOf data7.tar > data8.gz && gzip -dc data8.gz > data9.txt && cat data9.txt
+```
+
+**Flag:** `FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn` 
+
+**Takeaway:** In this challenge we learned about different commands (`gzip`, `bzip2`, `tar`) to compress and decompress files. Use the `man` command to learn more about them.
 
 ---
 
@@ -578,9 +620,10 @@ base64 -d data.txt
 
 ## Lvl 33 → 34
 
-**Goal:** Just ssh in to the level to check the password.
+**Goal:** Just ssh into the level to check the password.
 
 **Flag:** `no flag is provided for the last level`
 
 **Takeaway:** Congratulations on completing all the bandit levels! 
+
 
