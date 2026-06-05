@@ -411,15 +411,24 @@ cat /etc/bandit_pass/bandit14
 
 ## Lvl 14 → 15
 
-**Goal:** 
+**Goal:** Submit the current level's password to `localhost` on port `30000`. 
+
+The first thing that comes to mind is to scan port `30000` using `nmap`.
 
 ```bash
-
+nmap localhost -p30000
 ```
 
-**Flag:** ``  
+Now we know that the port is **open**, the `ndmps` service is running and the internet protocol used is tcp.
+Let's try the `nc` command to send the current password to that port.
 
-**Takeaway:** 
+```bash
+cat /etc/bandit_pass/bandit14 | nc localhost 30000
+```
+
+**Flag:** `8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo`  
+
+**Takeaway:** In this challenge we learned how to use `netcat` to send a message to a service given the **IP** and **port**.
 
 ---
 
