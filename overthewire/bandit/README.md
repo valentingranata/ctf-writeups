@@ -578,15 +578,31 @@ ssh bandit18@bandit.labs.overthewire.org -p 2220 "cat readme"
 
 ## Lvl 19 → 20
 
-**Goal:** 
+**Goal:** To access the next level you have to use the `bandit20-do` binary in the home directory. 
+
+First step is to run the `./bandit20-do` command to see what it does.
 
 ```bash
-
+./bandit20-do
 ```
 
-**Flag:** `` 
+The binary suggests to try executing the command with the `whoami` argument.
 
-**Takeaway:** 
+```bash
+./bandit20-do whoami
+```
+
+The output is `bandit20`, this means that any command passed as argument to `./bandit20-do` will be executed as `bandit20` user. Let's try to print the password on `bandit20`.
+
+```bash
+./bandit20-do cat /etc/bandit_pass/bandit20
+```
+
+Seems to work, we have found our flag!
+
+**Flag:** `0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO` 
+
+**Takeaway:** In this challenge we used a **setuid** binary, which runs with the privileges of its owner rather than the user executing it, allowing us to read files accessible only to bandit20. 
 
 ---
 
