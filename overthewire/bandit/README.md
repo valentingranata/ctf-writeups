@@ -562,15 +562,17 @@ diff passwords.old passwords.new
 
 ## Lvl 18 → 19
 
-**Goal:** 
+**Goal:** Print the `readme` file in the home directory, the only problem is that the `.bashrc` file was modified to log you out as soon as you log in with SSH. 
+
+To bypass the log out problem, we can specify the command to run directly when connecting to the machine with SSH.
 
 ```bash
-
+ssh bandit18@bandit.labs.overthewire.org -p 2220 "cat readme"
 ```
 
-**Flag:** `` 
+**Flag:** `cGWpMaKXVwDUNgPAVJbWYuGHVn9zl3j8` 
 
-**Takeaway:** 
+**Takeaway:** In this challenge we learned that we can specify a command to run directly on connection using `ssh`, in this case we print the `readme` file that we knew the existence of but in other cases we could have used the `ls` command before the `cat` command.
 
 ---
 
