@@ -434,15 +434,17 @@ cat /etc/bandit_pass/bandit14 | nc localhost 30000
 
 ## Lvl 15 → 16
 
-**Goal:** 
+**Goal:** Submit the current level's password to `localhost` on port `30001` using SSL/TLS encryption. 
+
+Here we can use the `openssl s_client` command to submit this level's password to **localhost:30001** (remember that the password is located at `/etc/bandit_pass/bandit15`).
 
 ```bash
-
+cat /etc/bandit_pass/bandit15 | openssl s_client -quiet -connect localhost:30001
 ```
 
-**Flag:** `` 
+**Flag:** `kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx` 
 
-**Takeaway:** 
+**Takeaway:** In this level we learned how to use the `openssl s_client` command to send an encrypted message between client (us) and server (in this case also us, but this is not always the case).
 
 ---
 
