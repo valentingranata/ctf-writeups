@@ -608,29 +608,65 @@ Seems to work, we have found our flag!
 
 ## Lvl 20 → 21
 
-**Goal:** 
+**Goal:** In this level, we can find a binary in the home directory. The binary connects to a given localhost port, reads the text from the connection, and responds with the **bandit21** password if the input matches the **bandit20** password. 
+
+The first step is to run the `./suconnect` binary to see the usage.
 
 ```bash
 
+./suconnect
 ```
 
-**Flag:** `` 
+This is the output that tells us something more about the level.
 
-**Takeaway:** 
+```bash
+This program will connect to the given port on localhost using TCP. If it receives the correct password from the other side, the next password is transmitted back.
+```
+
+Let's try to set up a simple server in background sending the current level's password on an **arbitrarily chosen** port with the `nc` command.
+
+```bash
+cat /etc/bandit_pass/bandit20 | nc -lnp 3333 &
+```
+
+After setting the server up, let's run the `./suconnect` command with the same port we used for the listener to get the next password.
+
+```bash
+./suconnect 3333
+```
+
+**Flag:** `EeoULMCra2q0dSkYj561DX7s1CpBuOBt` 
+
+**Takeaway:** In this level, we learned how to set up a listening server in background with the `nc` command and the `&` symbol. 
 
 ---
 
 ## Lvl 21 → 22
 
-**Goal:** 
+**Goal:** We have to look in `/etc/cron.d/` folder for commands that are executed regularly to solve this level.  
+
+The first step is to change directory into the `/etc/cron.d` directory and list its content. 
 
 ```bash
-
+cd /etc/cron.d
+ls 
 ```
 
-**Flag:** `` 
+Among the listed files we can spot `cronjob_bandit22`, let's print its content.
 
-**Takeaway:** 
+```bash
+cat /etc/cron.d/cronjob_bandit22
+```
+
+After printing the `/etc/cron.d/cronjob_bandit22` file we can see that it sends the **bandit22 password** to a temporary file, let's see if we have access to that file. 
+
+```bash
+cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+```
+
+**Flag:** `tRae0UfB9v0UzbCdn9cY0gQnds9GF58Q` 
+
+**Takeaway:** In this level, we learned how to read time-based job schedules, by going to the `/etc/cron.d/` folder.
 
 ---
 
