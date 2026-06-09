@@ -672,15 +672,42 @@ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 
 ## Lvl 22 → 23
 
-**Goal:** 
+**Goal:** This level is similar to the one before, there is a cron job running, we have to analyze the script to uncover the password.
+
+As before, the first step is to change directory to `/etc/cron.d` and list its content.
 
 ```bash
-
+cd /etc/cron.d
+ls
 ```
 
-**Flag:** `` 
+Here we can find a file named `cronjob_bandit23`, let's print it.
 
-**Takeaway:** 
+```bash
+cat cronjob_bandit23
+```
+
+From the output of this file we understand that it runs a shell script, let's analyze the script by printing it to the screen.
+
+```bash
+cat /usr/bin/cronjob_bandit23.sh
+```
+
+By reading the script we can understand that the code copies the **bandit23 password** to a temporary filename using this piece of code `echo I am user $myname | md5sum | cut -d ' ' -f 1`, let's try running it by replacing `$myname` with `bandit23` to uncover the filename.
+
+```bash
+echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+```
+
+The output of this command will be this: `8ca319486bfbbc3663ea0fbe81326349`, let's try to print the content of that file in the `/tmp/` folder.
+
+```bash
+cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+```
+
+**Flag:** `0Zf11ioIjMVN551jX3CmStKLYqjk54Ga` 
+
+**Takeaway:** In this level, we learned how to read a cron script and replicate part of it to uncover a password-protected filename. 
 
 ---
 
