@@ -1243,15 +1243,35 @@ The push will be rejected, but we'll get the flag.
 
 ## Lvl 32 → 33
 
-**Goal:** 
+**Goal:** This level is another escape from a shell. 
+
+Let's log in using the previous level password.
 
 ```bash
-
+ssh bandit32@bandit.labs.overthewire.org -p 2220
 ```
 
-**Flag:** `` 
+Once we log in, we are welcomed with this message `WELCOME TO THE UPPERCASE SHELL`, let's try running some commands to get comfortable with the level.
 
-**Takeaway:** 
+```bash 
+ls 
+```
+
+It seems that any command we run gives us `Permission denied`, we can also notice the prefix `sh: 1:`. This, for a beginner, could look like nothing, but more advanced people know that `$0` is a special variable that holds the path to the current shell. Running it directly launches a new shell session, bypassing the uppercase conversion since `$0` is not a regular alphabetic command.
+
+```bash
+$0
+```
+
+Now we have a shell, let's print the password for the next level.
+
+```bash
+cat /etc/bandit_pass/bandit33
+```
+
+**Flag:** `tQdtbs5D5i2vJwkO8mEyYEyTL8izoeJ0` 
+
+**Takeaway:** In this escape level, the trick was the knowledge of special shell parameters. `$0` holds the path to the current shell and is not a regular alphabetic command, so it bypasses the uppercase filter entirely. 
 
 ---
 
