@@ -1051,24 +1051,90 @@ cat README.md
 
 ## Lvl 29 → 30
 
-**Goal:** 
+**Goal:** There is a git repository at `ssh://bandit29-git@bandit.labs.overthewire.org:2220/home/bandit29-git/repo`. The password for the user `bandit29-git` is the same as for the user bandit29. (Note that this level is meant to be done on the local machine, and make sure to have `git` installed).
+
+In this level as in the ones before we will use a temporary folder on our local machine.
 
 ```bash
-
+cd $(mktemp -d)
 ```
 
-**Flag:** `` 
+The next step is to clone the repo, you should know how to do it from the previous level.
 
-**Takeaway:** 
+```bash
+git clone ssh://bandit29-git@bandit.labs.overthewire.org:2220/home/bandit29-git/repo
+```
+
+Now let's enter the `repo` folder and list its contents.
+
+```bash
+cd repo
+ls
+```
+
+There is a `README.md` file, let's print it.
+
+```bash
+cat README.md
+```
+
+The file tells us there are no passwords in production, so the password must be on a different branch. Let's check the logs first.
+
+```bash
+git log
+```
+
+After checking the logs, nothing relevant seems to pop out. Let's list all refs including remote branches with `git branch -a`: refs are named pointers to commits, and branches are a type of ref; remote branches like `origin/dev` won't show up with a plain `git log`.
+
+```bash
+git branch -a
+```
+
+Now we can see the existence of a `dev` branch, let's switch to it.
+
+```bash
+git checkout dev
+```
+
+Now let's print `README.md` to uncover the flag.
+
+```bash
+cat README.md
+```
+
+**Flag:** `qp30ex3VLz5MDG1n91YowTv4Q8l7CDZL` 
+
+**Takeaway:** In this level we learned that refs are named pointers to commits in git: branches, tags, and `HEAD` are all refs. Remote branches like `origin/dev` are also refs and can be listed with `git branch -a`. We can switch to them with `git checkout <branch-name>`.
 
 ---
 
 ## Lvl 30 → 31
 
-**Goal:** 
+**Goal:** There is a git repository at `ssh://bandit30-git@bandit.labs.overthewire.org:2220/home/bandit30-git/repo`. The password for the user `bandit30-git` is the same as for the user bandit30. (Note that this level is meant to be done on the local machine, and make sure to have `git` installed).
+
+In this level as in the ones before we will use a temporary folder on our local machine.
 
 ```bash
+cd $(mktemp -d)
+```
 
+The next step is to clone the repo, you should know how to do it from the previous level.
+
+```bash
+git clone ssh://bandit30-git@bandit.labs.overthewire.org:2220/home/bandit30-git/repo
+```
+
+Now let's enter the `repo` folder and list its contents.
+
+```bash
+cd repo
+ls
+```
+
+There is a `README.md` file, let's print it.
+
+```bash
+cat README.md
 ```
 
 **Flag:** `` 
