@@ -6,7 +6,7 @@ Before the game, please read the [Introduction](https://overthewire.org/wargames
 
 I would also suggest to try to use `man` instead of searching for hint or docs online, 90% of the games commands are fully documented, just use `man`.
 
-If you are stuck, search for hints **not solutions!**
+If you are stuck, search for hints, **not solutions!**
 If you can't figure it out after some hints, try doing the level the day after or just read someone's walk through, maybe more than one (I would avoid watching tutorials).
 
 Here you can see my **solutions** and **takeaways**, the `flags` can change but the process should be the same or very similar.
@@ -51,7 +51,7 @@ cat readme
 
 **Goal:** Read a file named `-` in the home directory. 
 
-Use `./` prefix before `-` to print the file containing the flag.
+Use the `./` prefix before `-` to print the file containing the flag.
 
 ```bash
 cat ./- 
@@ -95,7 +95,7 @@ Let's start by changing directory to `inhere`.
 cd ./inhere
 ```
 
-To see the hidden files inside the current directory, just use the `ls` command with `-a` option.
+To see the hidden files inside the current directory, just use the `ls` command with the `-a` option.
 
 ```bash
 ls -a
@@ -143,7 +143,7 @@ cat ./-file07
 
 ## Lvl 5 → 6
 
-**Goal:** We have to find a file with this properties:
+**Goal:** We have to find a file with these properties:
 - human-readable
 - 1033 bytes in size
 - not executable 
@@ -163,7 +163,7 @@ To get a better understanding of each option used in the command below, check th
 find ./ -type f -size 1033c -not -executable
 ```
 
-After the `find` command we'll see only one file seems to match our search, let's print the content of that file to the screen
+After the `find` command we'll see that only one file seems to match our search, let's print the content of that file to the screen
 
 ```bash
 cat ./maybehere07/.file2
@@ -190,7 +190,7 @@ Let's try to use the `find` command on the root `/` directory with the required 
 find / -user "bandit7" -group "bandit6" -size 33c 2> /dev/null
 ```
 
-To avoid useless `Permission denied` messages, we can redirect the standard error (`stderr`) to `/dev/null` folder that acts as a "black hole" on linux, deleting anything that's going inside.
+To avoid useless `Permission denied` messages, we can redirect the standard error (`stderr`) to `/dev/null`, a special file that acts as a "black hole" on Linux, deleting anything that goes into it.
 
 Now we should see only one file, let's print it to the screen.
 
@@ -200,7 +200,7 @@ cat /var/lib/dpkg/info/bandit7.password
 
 **Flag:** `morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj`
 
-**Takeaway:** We used the `find` command again but with different options, such as: `-user` and `-group` (to specify the owner and group of the file). We also learned how to redirect `stderr` to `/dev/null` (`... 2> /dev/null`), a special file that acts as a **black hole** (anything written to it is permanently discarded).
+**Takeaway:** We used the `find` command again but with different options, such as: `-user` and `-group` (to specify the owner and group of the file). We also learned how to redirect `stderr` to `/dev/null` (`... 2> /dev/null`), a special file that acts as a **black hole** (anything that goes into it is permanently discarded).
 
 ---
 
@@ -216,7 +216,7 @@ grep "millionth" data.txt
 
 **Flag:** `dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc` 
 
-**Takeaway:** Instead of reading a huge file line by line, we can use the `grep` command to print only the line that match a **pattern** . 
+**Takeaway:** Instead of reading a huge file line by line, we can use the `grep` command to print only the line that matches a **pattern**. 
 
 ---
 
@@ -248,7 +248,7 @@ strings data.txt | grep "====="
 
 **Flag:** `FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey` 
 
-**Takeaway:** The `strings` command extracts **human-readable text** from binary files. Combined with `grep`, it let's us filter for specific patterns (here the `=` characters that precede the flag).
+**Takeaway:** The `strings` command extracts **human-readable text** from binary files. Combined with `grep`, it lets us filter for specific patterns (here the `=` characters that precede the flag).
 
 ---
 
@@ -301,7 +301,7 @@ Let's copy the `data.txt` file to the temporary folder.
 cp ~/data.txt ./
 ```
 
-If we print the `data.txt` file, we can see that it's a hexdump of a binary, so lets convert it back to a binary with the `xxd -r` command.
+If we print the `data.txt` file, we can see that it's a hexdump of a binary, so let's convert it back to a binary with the `xxd -r` command.
 
 ```bash
 xxd -r data.txt > binary.gz
@@ -598,7 +598,7 @@ The output is `bandit20`, this means that any command passed as argument to `./b
 ./bandit20-do cat /etc/bandit_pass/bandit20
 ```
 
-Seems to work, we have found our flag!
+It seems to work. We have found our flag!
 
 **Flag:** `0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO` 
 
@@ -802,7 +802,7 @@ One thing that we can notice is that the response gives us the format that is pa
 vim brute-force
 ```
 
-We will start with the `shebang` and the rest will be a for loop that loops all the numbers from `0000` to `9999` combine with the **bandit24 password** and a space.
+We will start with the `shebang` and the rest will be a for loop that loops all the numbers from `0000` to `9999` combined with the **bandit24 password** and a space.
 
 ```bash
 #!/bin/bash
@@ -1030,7 +1030,7 @@ The first step is to take a look at the logs.
 git log
 ```
 
-Doing so we can see that there is a `fix info leak` commit, let's go back to the commit before that by copying its hash from the `git log` output.
+Doing so, we can see that there is a `fix info leak` commit. Let's go back to the commit before that by copying its hash from the `git log` output.
 
 
 ```bash
@@ -1144,7 +1144,7 @@ git log
 git branch -a
 ```
 
-Nothing unusual, let's think about it, if it isn't in a file or branch, what else could it be? One thing that comes to mind is tags, let's check them with the `git tag` command.
+Nothing unusual. Let's think about it: if it isn't in a file or branch, what else could it be? One thing that comes to mind is tags, let's check them with the `git tag` command.
 
 ```bash
 git tag
@@ -1232,7 +1232,7 @@ The last step is to push the commit.
 git push
 ```
 
-This will ask us to enter the current level password.
+This will ask us to enter the current level's password.
 The push will be rejected, but we'll get the flag.
 
 **Flag:** `3O9RfhqyAlVBEZpVb6LYStshZoqoSx5K` 
@@ -1277,7 +1277,7 @@ cat /etc/bandit_pass/bandit33
 
 ## Lvl 33 → 34
 
-**Goal:** Just ssh into the level to check if the solution to the prevous level is correct.
+**Goal:** Just SSH into the level to confirm you have completed the game.
 
 ```bash
 ssh bandit33@bandit.labs.overthewire.org -p 2220
@@ -1289,4 +1289,10 @@ Now read the `README.txt` file, you should be able to do it with no help from me
 
 **Takeaway:** Congratulations on completing all the bandit levels! 
 
+## Conclusion 
 
+First of all, congratulations! Completing all the levels is not an easy task, it requires discipline and commitment. I hope you learned something new, even if I didn't explain each command in detail, and that is intentional: **no expert CLI user knows all the commands and their options. Real experts use logic and the `man` command to solve any problem.**
+
+Each level was written and personally tested by me. I'm from Italy and English is not my native language; grammar errors were corrected with the help of Claude Code.
+
+Follow me on X: [granatavalentin](https://x.com/granatavalentin)
