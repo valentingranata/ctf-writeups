@@ -995,15 +995,57 @@ cat README
 
 ## Lvl 28 → 29
 
-**Goal:** 
+**Goal:** There is a git repository at `ssh://bandit28-git@bandit.labs.overthewire.org:2220/home/bandit28-git/repo`. The password for the user `bandit28-git` is the same as for the user bandit28. (Note that this level is meant to be done on the local machine, and make sure to have `git` installed).
+
+In this level as in the one before we will use a temporary folder on our local machine.
 
 ```bash
-
+cd $(mktemp -d)
 ```
 
-**Flag:** `` 
+The next step is to clone the repo, you should know how to do it from the previous level.
 
-**Takeaway:** 
+```bash
+git clone ssh://bandit28-git@bandit.labs.overthewire.org:2220/home/bandit28-git/repo
+```
+
+Now let's enter the `repo` folder and list its contents.
+
+```bash
+cd repo
+ls
+```
+
+There is a `README.md` file, let's print it.
+
+```bash
+cat README.md
+```
+
+We can notice that the password is now hidden from us, let's try to go back one version using the power of git version control.
+
+The first step is to take a look at the logs.
+
+```bash
+git log
+```
+
+Doing so we can see that there is a `fix info leak` commit, let's go back to the commit before that by copying its hash from the `git log` output.
+
+
+```bash
+git reset --hard a3437bddd447f2d496731658e86b98cbea9d3c98
+```
+
+Now that we have an older version, let's print `README.md`.
+
+```bash
+cat README.md
+```
+
+**Flag:** `4pT1t5DENaYuqnqvadYs1oE4QLCdjmJ7` 
+
+**Takeaway:** In this level we learned how to check logs with `git`, and how to reset to a previous commit (aka moving the HEAD). 
 
 ---
 
