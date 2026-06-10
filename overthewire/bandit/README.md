@@ -915,13 +915,14 @@ ssh bandit26@bandit.labs.overthewire.org -p 2220 -i bandit26.sshkey
 
 If the window is small enough `more` will pause for input, now that we are inside the `more` command let's press `v` to enter `vim` mode where we can execute commands.
 
-Now let's open the bandit26 password file by typing `:` and this command.
+Now we can execute a shell from vim, first let's set the shell, then run it.
 
 ```bash
-e /etc/bandit_pass/bandit26
+:set shell=/bin/bash
+:shell
 ```
 
-**Flag:** `s0773xxkk0MXfdqOfPRVr9L3jJBUOgCZ` 
+**Flag:** No password flag for this level; the SSH key provided in bandit25's home directory is the credential. The goal is to gain a working shell as bandit26.
 
 **Takeaway:** This level required some knowledge about the `more` command and also about the `vim` commands, I would highly suggest learning about `vim` and `more` commands in detail, one tip is to use `vim` as your daily editor, you will uncover a great power.
 
@@ -929,21 +930,31 @@ e /etc/bandit_pass/bandit26
 
 ## Lvl 26 → 27
 
-**Goal:** 
+**Goal:** Good job getting a shell! Now grab the password for bandit27.
+
+Re-enter bandit26 using the same trick from the previous level (shrink the terminal, SSH in, `more` pauses, press `v`, then run `:set shell=/bin/bash` and `:shell`).
+
+Now that we have a shell as bandit26, let's list the home directory to see what's available.
 
 ```bash
-
+ls
 ```
 
-**Flag:** `` 
+We can see a `bandit27-do` setuid binary, just like in level 19→20. Let's use it to read the bandit27 password.
 
-**Takeaway:** 
+```bash
+./bandit27-do cat /etc/bandit_pass/bandit27
+```
+
+**Flag:** `upsNCc7vzaRDx6oZC6GiR6ERwe1MowGB` 
+
+**Takeaway:** Nothing crazy to learn here, just be proud of the effort of the previous level. 
 
 ---
 
 ## Lvl 27 → 28
 
-**Goal:** 
+**Goal:** There is a git repository at `ssh://bandit27-git@bandit.labs.overthewire.org/home/bandit27-git/repo` via the port `2220`. The password for the user `bandit27-git` is the same as for the user bandit27. (Note that this level must be done on the local machine, and the goal is to search the password in the git repository).
 
 ```bash
 
