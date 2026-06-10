@@ -954,15 +954,42 @@ We can see a `bandit27-do` setuid binary, just like in level 19→20. Let's use 
 
 ## Lvl 27 → 28
 
-**Goal:** There is a git repository at `ssh://bandit27-git@bandit.labs.overthewire.org/home/bandit27-git/repo` via the port `2220`. The password for the user `bandit27-git` is the same as for the user bandit27. (Note that this level must be done on the local machine, and the goal is to search the password in the git repository).
+**Goal:** There is a git repository at `ssh://bandit27-git@bandit.labs.overthewire.org:2220/home/bandit27-git/repo`. The password for the user `bandit27-git` is the same as for the user bandit27. (Note that this level is meant to be done on the local machine, and make sure to have `git` installed).
+
+For this walkthrough we will operate from our local machine, let's make a temporary folder and clone the repo.
 
 ```bash
-
+cd $(mktemp -d)
 ```
 
-**Flag:** `` 
+We will use the `git clone` command to clone the repo, we can specify the port with `:port` at the end of the domain, and when prompted enter the `bandit27-git` user password, which is the same as for the bandit27 user.
 
-**Takeaway:** 
+```bash
+git clone ssh://bandit27-git@bandit.labs.overthewire.org:2220/home/bandit27-git/repo
+```
+
+Once the repository is cloned, we will see a `repo` folder inside our temporary directory.
+
+```bash
+ls
+```
+
+Just enter the folder and list its contents.
+
+```bash
+cd repo
+ls
+```
+
+Inside there is only one file, print it.
+
+```bash 
+cat README
+```
+
+**Flag:** `Yz9IpL0sBcCeuG7m9uQFt8ZNpS4HZRcN` 
+
+**Takeaway:** In this level we learned how to clone a repository with `git`, how to specify a `port`, how to navigate the cloned repository with standard Linux commands. 
 
 ---
 
