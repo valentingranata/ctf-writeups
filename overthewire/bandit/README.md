@@ -1193,9 +1193,51 @@ There is a `README.md` file, let's print it.
 cat README.md
 ```
 
-**Flag:** `` 
+This time our goal is to push a file named `key.txt` that should contain `May I come in?` on the `master` branch.
 
-**Takeaway:** 
+The first step is to create the file.
+
+```bash
+echo "May I come in?" > key.txt
+```
+
+Now let's add the file to the version control.
+
+```bash 
+git add key.txt
+```
+
+Git warns us that `key.txt` is being ignored due to a `.gitignore` rule. Let's open `.gitignore` to inspect it.
+
+```bash
+vim .gitignore
+```
+
+In the `.gitignore` file all `*.txt` files are ignored, let's remove that line.
+Now we can add the `key.txt` file to the version control.
+
+```bash
+git add key.txt
+```
+
+Now let's create a commit.
+
+```bash
+git commit -m "key"
+```
+
+The last step is to push the commit.
+
+```bash 
+git push
+```
+
+This will ask us to enter the current level password.
+The push will be rejected, but we'll get the flag.
+
+**Flag:** `3O9RfhqyAlVBEZpVb6LYStshZoqoSx5K` 
+
+**Takeaway:** In this level we learned how to add a file to the version control, how to commit a change, how to push a commit to a remote repository and how the `.gitignore` file works. 
 
 ---
 
