@@ -1131,24 +1131,66 @@ cd repo
 ls
 ```
 
-There is a `README.md` file, let's print it.
+Here we find a `README.md` file, let's print it.
 
 ```bash
 cat README.md
 ```
 
-**Flag:** `` 
+Nothing seems to be inside it, let's do a quick log and branch check.
 
-**Takeaway:** 
+```bash
+git log
+git branch -a
+```
+
+Nothing unusual, let's think about it, if it isn't in a file or branch, what else could it be? One thing that comes to mind is tags, let's check them with the `git tag` command.
+
+```bash
+git tag
+```
+
+Now that we know about the existence of the `secret` tag, let's try reading its message with `git show`.
+
+```bash 
+git show secret
+```
+
+There is our flag.
+
+**Flag:** `fb5S2xb7bRyFmAvQYQGEqsbhVyJqhnDy` 
+
+**Takeaway:** In this level we learned about the existence of `tags` in git, how to list and read their messages. 
 
 ---
 
 ## Lvl 31 → 32
 
-**Goal:** 
+**Goal:** There is a git repository at `ssh://bandit31-git@bandit.labs.overthewire.org:2220/home/bandit31-git/repo`. The password for the user `bandit31-git` is the same as for the user bandit31. (Note that this level is meant to be done on the local machine, and make sure to have `git` installed).
+
+In this level as in the ones before we will use a temporary folder on our local machine.
 
 ```bash
+cd $(mktemp -d)
+```
 
+The next step is to clone the repo, you should know how to do it from the previous level.
+
+```bash
+git clone ssh://bandit31-git@bandit.labs.overthewire.org:2220/home/bandit31-git/repo
+```
+
+Now let's enter the `repo` folder and list its contents.
+
+```bash
+cd repo
+ls
+```
+
+There is a `README.md` file, let's print it.
+
+```bash
+cat README.md
 ```
 
 **Flag:** `` 
