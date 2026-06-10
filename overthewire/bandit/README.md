@@ -834,15 +834,96 @@ The last step is to execute the script and copy the password for the next level.
 
 ## Lvl 25 → 26
 
-**Goal:** 
+**Goal:** In this level we are provided with the `bandit26.sshkey` private key, the only problem is the shell set for **bandit26**. 
+
+The first step is to save the private key on our host, just print it to the screen, copy it and save it on our machine with the right permissions.
 
 ```bash
-
+cat bandit26.sshkey
 ```
 
-**Flag:** `` 
+Copy the text, exit from the remote machine and save the file on our machine.
 
-**Takeaway:** 
+```bash
+echo "-----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEApis2AuoooEqeYWamtwX2k5z9uU1Afl2F8VyXQqbv/LTrIwdW
+pTfaeRHXzr0Y0a5Oe3GB/+W2+PReif+bPZlzTY1XFwpk+DiHk1kmL0moEW8HJuT9
+/5XbnpjSzn0eEAfFax2OcopjrzVqdBJQerkj0puv3UXY07AskgkyD5XepwGAlJOG
+xZsMq1oZqQ0W29aBtfykuGie2bxroRjuAPrYM4o3MMmtlNE5fC4G9Ihq0eq73MDi
+1ze6d2jIGce873qxn308BA2qhRPJNEbnPev5gI+5tU+UxebW8KLbk0EhoXB953Ix
+3lgOIrT9Y6skRjsMSFmC6WN/O7ovu8QzGqxdywIDAQABAoIBAAaXoETtVT9GtpHW                                      qLaKHgYtLEO1tOFOhInWyolyZgL4inuRRva3CIvVEWK6TcnDyIlNL4MfcerehwGi
+il4fQFvLR7E6UFcopvhJiSJHIcvPQ9FfNFR3dYcNOQ/IFvE73bEqMwSISPwiel6w
+e1DjF3C7jHaS1s9PJfWFN982aublL/yLbJP+ou3ifdljS7QzjWZA8NRiMwmBGPIh                                      Yq8weR3jIVQl3ndEYxO7Cr/wXXebZwlP6CPZb67rBy0jg+366mxQbDZIwZYEaUME
+zY5izFclr/kKj4s7NTRkC76Yx+rTNP5+BX+JT+rgz5aoQq8ghMw43NYwxjXym/MX
+c8X8g0ECgYEA1crBUAR1gSkM+5mGjjoFLJKrFP+IhUHFh25qGI4Dcxxh1f3M53le
+wF1rkp5SJnHRFm9IW3gM1JoF0PQxI5aXHRGHphwPeKnsQ/xQBRWCeYpqTme9amJV
+tD3aDHkpIhYxkNxqol5gDCAt6tdFSxqPaNfdfsfaAOXiKGrQESUjIBcCgYEAxvmI
+2ROJsBXaiM4Iyg9hUpjZIn8TW2UlH76pojFG6/KBd1NcnW3fu0ZUU790wAu7QbbU
+i7pieeqCqSYcZsmkhnOvbdx54A6NNCR2btc+si6pDOe1jdsGdXISDRHFb9QxjZCj
+6xzWMNvb5n1yUb9w9nfN1PZzATfUsOV+Fy8CbG0CgYEAifkTLwfhqZyLk2huTSWm
+pzB0ltWfDpj22MNqVzR3h3d+sHLeJVjPzIe9396rF8KGdNsWsGlWpnJMZKDjgZsz
+JQBmMc6UMYRARVP1dIKANN4eY0FSHfEebHcqXLho0mXOUTXe37DWfZza5V9Oify3
+JquBd8uUptW1Ue41H4t/ErsCgYEArc5FYtF1QXIlfcDz3oUGz16itUZpgzlb71nd                                      1cbTm8EupCwWR5I1j+IEQU+JTUQyI1nwWcnKwZI+5kBbKNJUu/mLsRyY/UXYxEZh
+ibrNklm94373kV1US/0DlZUDcQba7jz9Yp/C3dT/RlwoIw5mP3UxQCizFspNKOSe
+euPeaxUCgYEAntklXwBbokgdDup/u/3ms5Lb/bm22zDOCg2HrlWQCqKEkWkAO6R5
+/Wwyqhp/wTl8VXjxWo+W+DmewGdPHGQQ5fFdqgpuQpGUq24YZS8m66v5ANBwd76t                                      IZdtF5HXs2S5CADTwniUS5mX1HO9l5gUkk+h0cH5JnPtsMCnAUM+BRY=
+-----END RSA PRIVATE KEY-----" > bandit26.sshkey
+```
+
+Give it the right permissions.
+
+```bash
+chmod 600 bandit26.sshkey 
+```
+
+Now let's log in to the next level using the private key.
+
+```bash
+ssh bandit26@bandit.labs.overthewire.org -p 2220 -i bandit26.sshkey
+```
+
+Once we try to log in, the shell kicks us out, let's try reading the shell set for the bandit26 user by logging in to bandit25.
+
+```bash
+ssh bandit25@bandit.labs.overthewire.org -p 2220
+```
+
+To read the shell set for the bandit26 user we can just print the `/etc/passwd` file and grep for the bandit26 user.
+
+```bash
+cat /etc/passwd | grep "bandit26"
+```
+
+By printing the bandit26 `passwd` info we find out that this is the shell set for the user: `/usr/bin/showtext`, let's print the content to the screen and try to analyze it.
+    
+```bash
+cat /usr/bin/showtext
+```
+
+It seems like when we log in the `more` command is executed, let's check how long the `text.txt` file is, because `more` only pauses for input when the content is taller than the terminal.
+
+```bash
+cat /home/bandit26/text.txt
+```
+
+We don't have access to that file, but we can force `more` into interactive mode by making our terminal window **shorter than the file content**, so let's log in to bandit26 with a **smaller terminal size** (literally by reducing the number of rows of our terminal window).
+
+
+```bash
+ssh bandit26@bandit.labs.overthewire.org -p 2220 -i bandit26.sshkey
+```
+
+If the window is small enough `more` will pause for input, now that we are inside the `more` command let's press `v` to enter `vim` mode where we can execute commands.
+
+Now let's open the bandit26 password file by typing `:` and this command.
+
+```bash
+e /etc/bandit_pass/bandit26
+```
+
+**Flag:** `s0773xxkk0MXfdqOfPRVr9L3jJBUOgCZ` 
+
+**Takeaway:** This level required some knowledge about the `more` command and also about the `vim` commands, I would highly suggest learning about `vim` and `more` commands in detail, one tip is to use `vim` as your daily editor, you will uncover a great power.
 
 ---
 
