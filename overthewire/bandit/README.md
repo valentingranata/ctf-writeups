@@ -1277,7 +1277,13 @@ cat /etc/bandit_pass/bandit33
 
 ## Lvl 33 → 34
 
-**Goal:** Just ssh into the level to check the password.
+**Goal:** Just ssh into the level to check if the solution to the prevous level is correct.
+
+```bash
+ssh bandit33@bandit.labs.overthewire.org -p 2220
+```
+
+Now read the `README.txt` file, you should be able to do it with no help from me :P.
 
 **Flag:** `no flag is provided for the last level`
 
